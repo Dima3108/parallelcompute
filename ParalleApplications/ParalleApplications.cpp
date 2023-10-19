@@ -4,17 +4,19 @@
 //#include <iostream>
 #include "pch.h"
 #include"application2.h"
+#include"application3.h"
 int main(int *arc,char**argv)
 {
    
 
-    std::cout << "Hello World!\n";
-    cout << "start 2 applications\n";
+   // std::cout << "Hello World!\n";
+   // cout << "start 2 applications\n";
     MPI_Init(arc, &argv);
-    task2();
-    task2_2(arc,argv);
+  //  task2();
+  //  task2_2(arc,argv);
+    task();
     MPI_Finalize();
-    cout << "stop application2\n";
+    //cout << "stop application2\n";
    
 }
 
