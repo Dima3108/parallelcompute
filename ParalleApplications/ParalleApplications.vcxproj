@@ -131,10 +131,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="application2.cpp" />
+    <ClCompile Include="application3.cpp" />
+    <ClCompile Include="application4.cpp" />
     <ClCompile Include="ParalleApplications.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="application2.h" />
+    <ClInclude Include="application3.h" />
+    <ClInclude Include="application4.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

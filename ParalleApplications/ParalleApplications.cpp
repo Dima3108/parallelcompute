@@ -5,6 +5,7 @@
 #include "pch.h"
 #include"application2.h"
 #include"application3.h"
+#include"application4.h"
 int main(int *arc,char**argv)
 {
    
@@ -14,7 +15,8 @@ int main(int *arc,char**argv)
     MPI_Init(arc, &argv);
   //  task2();
   //  task2_2(arc,argv);
-    task();
+   // task();
+    task4base();
     MPI_Finalize();
     //cout << "stop application2\n";
    
