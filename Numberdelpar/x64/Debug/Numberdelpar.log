@@ -1,0 +1,3 @@
+﻿  Numberdelpar.cpp
+Q:\github_repo\parallelcompute\Numberdelpar\Numberdelpar.cpp(17,2): warning C4091: typedef : пропускается слева от "MYHELPTYPE", когда ни одна переменная не объявлена
+  Numberdelpar.vcxproj -> Q:\github_repo\parallelcompute\ParalleApplications\x64\Debug\Numberdelpar.exe
