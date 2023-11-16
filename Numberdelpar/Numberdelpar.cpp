@@ -24,7 +24,7 @@ int str_len(char* str) {
 }
 int main(int* arc, char** argv)
 {
-     long long input_data;
+     int input_data;
     string cesh;
     MPI_Request reqs[1];
     
@@ -65,7 +65,8 @@ FILE* outputstr=NULL;
                           //  cesh += to_string(value)+"\n";
                             v_.value = value;
                             //MPI_Irecv((void*)&v_, 1, sizeof(MYHELPTYPE), 0, thread_id, MPI_COMM_WORLD, &reqs[0]);
-                            MPI_Isend((void*)&v_.value, 1, MPI_LONG_LONG, 0, thread_id, MPI_COMM_WORLD, &reqs[0]);
+                            MPI_Isend(&v_.value, 1, MPI_LONG_LONG, 0, thread_id, MPI_COMM_WORLD, &reqs[0]);
+                            printf("value on thread{ %d }: [ %d ] \n", thread_id, v_.value);
                         }
                         else {
                             fprintf(outputstr, "%s\n",to_string( value).c_str());
@@ -75,15 +76,17 @@ FILE* outputstr=NULL;
                 v_.value = 0;
                 if (thread_id != 0) {
                  
-                    MPI_Isend((void*)&v_.value, 1, MPI_LONG_LONG, 0, thread_id, MPI_COMM_WORLD,&reqs[0]);
-                    
+                    MPI_Isend(&v_.value, 1, MPI_LONG_LONG, 0, thread_id, MPI_COMM_WORLD,&reqs[0]);
+                   // MPI_Barrier(MPI_COMM_WORLD);
                 }
                 else {
+                   // MPI_Barrier(MPI_COMM_WORLD);
                     MYHELPTYPE* buf = new MYHELPTYPE[thread_count - 1];
                     for (int i = 1; i < thread_count; i++) {
-                        MPI_Recv((void*)&buf[i - 1].value, 1, MPI_LONG_LONG, i, i, MPI_COMM_WORLD, &stats[i - 1]);
-                        while (buf[i].value != 0) {
-                            fprintf(outputstr, "%s\n", to_string(buf[i].value).c_str());
+                        MPI_Recv(&(buf[i - 1].value), 1, MPI_LONG_LONG, i, i, MPI_COMM_WORLD, &stats[i - 1]);
+                        while (buf[i-1].value != 0) {
+                            fprintf(outputstr, "%s\n", to_string(buf[i-1].value).c_str());
+
                             MPI_Recv((void*)&buf[i - 1].value, 1, MPI_LONG_LONG, i, i, MPI_COMM_WORLD, &stats[i - 1]);
                         }
                     }
@@ -112,7 +115,7 @@ FILE* outputstr=NULL;
        t1 = MPI_Wtime();
        FILE* timestr = _fsopen(TIME_FILE, "a", _SH_SECURE);
        double delta_time = t1 - t0;
-       fprintf(timestr, "threadcount:%d,time:%f", thread_count, delta_time);
+       fprintf(timestr, "threadcount:[ %d ], time: [ %f ] \n", thread_count, delta_time);
        fclose(timestr);
  }
 MPI_Finalize();
