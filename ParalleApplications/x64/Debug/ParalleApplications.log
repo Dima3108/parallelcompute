@@ -1,3 +1,7 @@
-﻿  application2.cpp
+﻿  application3.cpp
+  application4.cpp
+  ParalleApplications.cpp
 Q:\github_repo\parallelcompute\ParalleApplications\application2.h(4,10): warning C4067: непредвиденные лексемы за директивой препроцессора, требуется newline
+  Создание кода...
+application2.obj : warning LNK4204: в "" отсутствуют отладочные данные для ссылок на модуль; компоновка объекта выполняется как при отсутствии отладочных данных
   ParalleApplications.vcxproj -> Q:\github_repo\parallelcompute\ParalleApplications\x64\Debug\ParalleApplications.exe
