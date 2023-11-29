@@ -2,8 +2,9 @@
 #define N 1024*1024*35
 #define VALUE 3.5
 #define MPITAG 10
-double s[N]{ VALUE };
+
 void task() {
+double s[N]{ VALUE };
 	int thread_id, thread_count;
 	for (int i = 0; i < N; i++) {
 		s[i] = VALUE;

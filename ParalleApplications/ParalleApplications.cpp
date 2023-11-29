@@ -6,6 +6,7 @@
 #include"application2.h"
 #include"application3.h"
 #include"application4.h"
+#include"forcontrol.h"
 int main(int *arc,char**argv)
 {
    
@@ -16,7 +17,8 @@ int main(int *arc,char**argv)
   //  task2();
   //  task2_2(arc,argv);
    // task();
-    task4base();
+   // task4base();
+    prop_spos();
     MPI_Finalize();
     //cout << "stop application2\n";
    

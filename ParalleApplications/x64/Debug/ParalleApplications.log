@@ -1,7 +1,12 @@
-﻿  application3.cpp
+﻿  application2.cpp
+Q:\github_repo\parallelcompute\ParalleApplications\application2.h(4,10): warning C4067: непредвиденные лексемы за директивой препроцессора, требуется newline
+  application3.cpp
   application4.cpp
+  forcontrol.cpp
+Q:\github_repo\parallelcompute\ParalleApplications\forcontrol.cpp(17,15): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
   ParalleApplications.cpp
 Q:\github_repo\parallelcompute\ParalleApplications\application2.h(4,10): warning C4067: непредвиденные лексемы за директивой препроцессора, требуется newline
   Создание кода...
-application2.obj : warning LNK4204: в "" отсутствуют отладочные данные для ссылок на модуль; компоновка объекта выполняется как при отсутствии отладочных данных
+LINK : warning LNK4075: не учитывается "/INCREMENTAL" из-за спецификации "/OPT:ICF"
+application2.obj : warning LNK4075: не учитывается "/EDITANDCONTINUE" из-за спецификации "/OPT:ICF"
   ParalleApplications.vcxproj -> Q:\github_repo\parallelcompute\ParalleApplications\x64\Debug\ParalleApplications.exe
