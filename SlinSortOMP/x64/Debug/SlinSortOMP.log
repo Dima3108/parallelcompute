@@ -1,0 +1,8 @@
+﻿cl : командная строка  warning D9002: пропуск неизвестного параметра "/arch:SSE"
+  SlinSortOMP.cpp
+Q:\github_repo\parallelcompute\SlinSortOMP\SlinSortOMP.cpp(22,15): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+LINK : warning LNK4075: не учитывается "/INCREMENTAL" из-за спецификации "/LTCG"
+  Создание кода
+  Not all modules are compiled with -Gy (function comdat), build without incremental LTCG.
+  Создание кода завершено
+  SlinSortOMP.vcxproj -> Q:\github_repo\parallelcompute\SlinSortOMP\x64\Debug\SlinSortOMP.exe
