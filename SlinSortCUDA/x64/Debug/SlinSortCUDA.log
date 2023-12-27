@@ -1,0 +1,43 @@
+﻿  Compiling CUDA source file kernel.cu...
+  
+  Q:\github_repo\parallelcompute\SlinSortCUDA>"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.1\bin\nvcc.exe" -gencode=arch=compute_52,code=\"sm_52,compute_52\" --use-local-env -ccbin "Q:\visual studio 2022\VC\Tools\MSVC\14.36.32532\bin\HostX64\x64" -x cu   -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.1\include" -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.1\include"  -G   --keep-dir x64\Debug  -maxrregcount=0   --machine 64 --compile -cudart static  -g  -DWIN32 -DWIN64 -D_DEBUG -D_CONSOLE -D_MBCS -Xcompiler "/EHsc /W3 /nologo /Od /FS /Zi /RTC1 /MDd " -Xcompiler "/Fdx64\Debug\vc143.pdb" -o Q:\github_repo\parallelcompute\SlinSortCUDA\x64\Debug\kernel.cu.obj "Q:\github_repo\parallelcompute\SlinSortCUDA\kernel.cu" 
+Q:\github_repo\parallelcompute\SlinSortCUDA\kernel.cu(89): warning #546-D: transfer of control bypasses initialization of:
+              variable "suc" (declared at line 91)
+            goto Error;
+            ^
+  
+  Remark: The warnings can be suppressed with "-diag-suppress <warning-number>"
+  
+Q:\github_repo\parallelcompute\SlinSortCUDA\kernel.cu(18): warning #177-D: variable "j_pos" was declared but never referenced
+        int j,j_pos,c_pos;
+              ^
+  
+  Remark: The warnings can be suppressed with "-diag-suppress <warning-number>"
+  
+Q:\github_repo\parallelcompute\SlinSortCUDA\kernel.cu(18): warning #177-D: variable "c_pos" was declared but never referenced
+        int j,j_pos,c_pos;
+                    ^
+  
+Q:\github_repo\parallelcompute\SlinSortCUDA\kernel.cu(19): warning #177-D: variable "c_val" was declared but never referenced
+            double c_val;
+                   ^
+  
+Q:\github_repo\parallelcompute\SlinSortCUDA\kernel.cu(20): warning #177-D: variable "cesh_val" was declared but never referenced
+        __declspec(__shared__) double cesh_val[256];
+                                      ^
+  
+Q:\github_repo\parallelcompute\SlinSortCUDA\kernel.cu(21): warning #177-D: variable "cesh_pos" was declared but never referenced
+        __declspec(__shared__) int cesh_pos[256];
+                                   ^
+  
+Q:\github_repo\parallelcompute\SlinSortCUDA\kernel.cu(89): warning #546-D: transfer of control bypasses initialization of:
+              variable "suc" (declared at line 91)
+            goto Error;
+            ^
+  
+  kernel.cu
+  tmpxft_000029e0_00000000-7_kernel.cudafe1.cpp
+Q:\github_repo\parallelcompute\SlinSortCUDA\kernel.cu(74): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+Q:\github_repo\parallelcompute\SlinSortCUDA\kernel.cu(108): warning C4477: "printf": в строке форматирования "%d" требуется аргумент типа "int", но вариативный аргумент "1" имеет тип "double"
+Q:\github_repo\parallelcompute\SlinSortCUDA\kernel.cu(108): warning C4477: "printf": в строке форматирования "%d" требуется аргумент типа "int", но вариативный аргумент "2" имеет тип "double"
+  SlinSortCUDA.vcxproj -> Q:\github_repo\parallelcompute\SlinSortCUDA\x64\Debug\SlinSortCUDA.exe

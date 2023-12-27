@@ -2,60 +2,132 @@
 //
 
 #include <iostream>
+#include <future>
+#include<random>
 #include<omp.h>
 #define PI 3.14
 #define EPS 0.333
-#define N 1024*128
-#define MIN(a,b) (a<b)?a:b
+#define N 20
+/*#define MIN(a,b) (a<b)?a:b
 #define MAX(a,b) (a>b)?a:b
-#define BLOCK_SIZE N/THREAD_COUNT
-#define THREAD_COUNT 8
+#define BLOCK_SIZE 2
+#define THREAD_COUNT 1*/
+#define VALUE 100
 using namespace std;
-double GenerateValue() {
-    
-    return 1024.00 - 2048.00 * sin((PI/ (rand() + EPS)) - EPS);
-    
+void print(double* mas,int n) {
+    for (int i = 0; i < n; i++) {
+        printf("%f,", mas[i]);
+    }
+    printf("\n");
+}
+void Merge(double* arr1, int count1, double* arr2, int count2, double* mas);
+void MergeSort(double* array, int arrayLen);
+
+void Merge(double* arr1, int count1, double *arr2, int count2,double*mas) {
+    // mas = new double[count1+count2];
+    int ptr1 = 0, ptr2 = 0;
+    for (int i = 0; i < count1+count2; i++) {
+        if (ptr1 < count1 && ptr2 < count2)
+        {
+            mas[i] = arr1[ptr1] > arr2[ptr2] ? arr1[ptr1++] : arr2[ptr2++];
+        }
+        else
+        {
+            mas[i] = ptr2 < (count2) ? arr2[ptr2++] : arr1[ptr1++];
+        }
+    }
+
+   // print(mas,count1+count2);
+
+   
+}
+void MergeSort(double* array,int arrayLen)
+{
+    if (arrayLen == 1)
+    {
+      
+    }
+    else {
+
+
+        int middle = static_cast<int>(arrayLen / 2);
+        double* arr1 = new double[middle];
+        double* arr2 = new double[arrayLen - middle];
+        for (int i = 0; i < middle; i++) {
+            arr1[i] = array[i];
+        }
+        int p = 0;
+        for (int i = middle; i < arrayLen; i++) {
+            arr2[p++] = array[i];
+        }
+        p = 0;
+int c = arrayLen - middle;
+       
+  /* auto t1 = std::async(std::launch::async, [arr1, middle] {
+    MergeSort(arr1, middle);
+             });
+auto t2=std::async(std::launch::async, [arr2, c] {
+    MergeSort(arr2,c);
+            });
+t1.wait();
+t2.wait();*/
+        
+       thread t1, t2;
+        
+        t1 = thread(&MergeSort, arr1, middle);
+        t2 = thread(&MergeSort, arr2, c);
+        t1.join();
+        t2.join();
+       /* MergeSort(arr1, middle);
+        MergeSort(arr2, c);*/
+        double* cesh = new double[arrayLen];
+        Merge(arr1, middle, arr2, c, cesh);
+        delete[]arr1;
+        delete[]arr2;
+        for (int i = 0; i < arrayLen; i++) {
+            array[i] = cesh[i];
+        }
+        delete[]cesh;
+    }
+  
+}
+void print(double *mas) {
+    for (int i = 0; i < N; i++) {
+        printf("%f,", mas[i]);
+    }
+    printf("\n");
+}
+double GenerateValue(double val) {
+    double t = val;
+    while (abs(t) > VALUE)
+        t /= 10.0;
+    return VALUE-2*VALUE*sin((PI/(t-EPS))+EPS);
 }
 int main()
 {
     double* array_i = new double[N];
-    srand(time(0));
+    random_device rd;   // non-deterministic generator
+    mt19937 gen(rd());  // to seed mersenne twister.
+    // replace the call to rd() with a
+    // constant value to get repeatable
+    // results.
+   
     for (int i = 0; i < N; i++)
-        array_i[i] = GenerateValue();
-omp_set_num_threads(THREAD_COUNT);
+        array_i[i] = gen();
+    for (int i = 0; i < N; i++) {
+        double v = array_i[i];
+        array_i[i] = GenerateValue(v);
+    }
+    printf("input:\n");
+    print(array_i);
+
     std::cout << "start sort" << endl;
     
     double t0 = omp_get_wtime();
-    int block_size = BLOCK_SIZE;
-    while (block_size <=N) 
-    {
-        #pragma omp parallel 
-        {
-        #pragma omp for nowait 
-           for (int thread = 0; thread < THREAD_COUNT; thread++)
-           {
-            //int thread = omp_get_thread_num();
-               for (int offset = omp_get_thread_num(); offset < N / block_size; offset += THREAD_COUNT) 
-               {
-                     double  min, max;
-                     for (int i = 0; i < block_size - 1; i++) 
-                     {
-                          for (int j = i + 1; j < block_size; j++) 
-                          {
-                             min = MIN(array_i[(block_size * offset) + i], array_i[(block_size * offset) + j]);
-                             max = MAX(array_i[(block_size * offset) + i], array_i[(block_size * offset) + j]);
-                             array_i[(block_size * offset) + i] = min;
-                             array_i[(block_size * offset) + j] = max;
-                          }
-                     }
-               }
-           }
-        }
-        block_size *= 2;
-        //std::cout << block_size << endl;
-        printf("%d\n",block_size);
-    }
+    MergeSort(array_i, N);
     double t1 = omp_get_wtime();
+    printf("\noutput\n");
+    print(array_i);
     std::cout << "test" << std::endl;
     bool Suc = true;
     for(int i=0;i<N-1;i++)

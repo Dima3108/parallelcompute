@@ -1,0 +1,1 @@
+Q:\github_repo\parallelcompute\SlinSortCUDA\x64\Debug\SlinSortCUDA.exe
