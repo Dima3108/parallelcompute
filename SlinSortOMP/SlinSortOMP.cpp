@@ -7,7 +7,7 @@
 #include<omp.h>
 #define PI 3.14
 #define EPS 0.333
-#define N 20
+//#define N 30
 /*#define MIN(a,b) (a<b)?a:b
 #define MAX(a,b) (a>b)?a:b
 #define BLOCK_SIZE 2
@@ -21,7 +21,7 @@ void print(double* mas,int n) {
     printf("\n");
 }
 void Merge(double* arr1, int count1, double* arr2, int count2, double* mas);
-void MergeSort(double* array, int arrayLen);
+void MergeSort(double* array, int arrayLen,int level);
 
 void Merge(double* arr1, int count1, double *arr2, int count2,double*mas) {
     // mas = new double[count1+count2];
@@ -41,7 +41,7 @@ void Merge(double* arr1, int count1, double *arr2, int count2,double*mas) {
 
    
 }
-void MergeSort(double* array,int arrayLen)
+void MergeSort(double* array,int arrayLen,int level)
 {
     if (arrayLen == 1)
     {
@@ -71,15 +71,20 @@ auto t2=std::async(std::launch::async, [arr2, c] {
             });
 t1.wait();
 t2.wait();*/
+if (level < 0) {
+ thread t1, t2;
         
-       thread t1, t2;
-        
-        t1 = thread(&MergeSort, arr1, middle);
-        t2 = thread(&MergeSort, arr2, c);
+        t1 = thread(&MergeSort, arr1, middle,level+1);
+        t2 =thread(&MergeSort, arr2, c,level+1);
         t1.join();
         t2.join();
-       /* MergeSort(arr1, middle);
-        MergeSort(arr2, c);*/
+        }
+else {
+
+     MergeSort(arr1, middle,level);
+        MergeSort(arr2, c,level);
+}
+   
         double* cesh = new double[arrayLen];
         Merge(arr1, middle, arr2, c, cesh);
         delete[]arr1;
@@ -91,12 +96,12 @@ t2.wait();*/
     }
   
 }
-void print(double *mas) {
+/*void print(double* mas) {
     for (int i = 0; i < N; i++) {
         printf("%f,", mas[i]);
     }
     printf("\n");
-}
+}*/
 double GenerateValue(double val) {
     double t = val;
     while (abs(t) > VALUE)
@@ -105,32 +110,37 @@ double GenerateValue(double val) {
 }
 int main()
 {
-    double* array_i = new double[N];
+   
     random_device rd;   // non-deterministic generator
     mt19937 gen(rd());  // to seed mersenne twister.
     // replace the call to rd() with a
     // constant value to get repeatable
     // results.
-   
-    for (int i = 0; i < N; i++)
+    int n = 0;
+   // scanf("read n:%d", &n);
+    std::cout << "read n:";
+    std::cin >> n;
+    std::cout<<std::endl; 
+    double* array_i = new double[n];
+    for (int i = 0; i < n; i++)
         array_i[i] = gen();
-    for (int i = 0; i < N; i++) {
+    for (int i = 0; i < n; i++) {
         double v = array_i[i];
         array_i[i] = GenerateValue(v);
     }
     printf("input:\n");
-    print(array_i);
+    print(array_i,  n);
 
     std::cout << "start sort" << endl;
     
     double t0 = omp_get_wtime();
-    MergeSort(array_i, N);
+    MergeSort(array_i, n,0);
     double t1 = omp_get_wtime();
     printf("\noutput\n");
-    print(array_i);
+    print(array_i,n);
     std::cout << "test" << std::endl;
     bool Suc = true;
-    for(int i=0;i<N-1;i++)
+    for(int i=0;i<n-1;i++)
         if (array_i[i] > array_i[i + 1]) {
             Suc = false;
             break;
