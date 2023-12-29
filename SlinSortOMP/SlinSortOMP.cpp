@@ -71,7 +71,7 @@ auto t2=std::async(std::launch::async, [arr2, c] {
             });
 t1.wait();
 t2.wait();*/
-if (level < 0) {
+if (level < 3) {
  thread t1, t2;
         
         t1 = thread(&MergeSort, arr1, middle,level+1);
@@ -118,36 +118,40 @@ int main()
     // results.
     int n = 0;
    // scanf("read n:%d", &n);
-    std::cout << "read n:";
-    std::cin >> n;
-    std::cout<<std::endl; 
-    double* array_i = new double[n];
-    for (int i = 0; i < n; i++)
-        array_i[i] = gen();
-    for (int i = 0; i < n; i++) {
-        double v = array_i[i];
-        array_i[i] = GenerateValue(v);
-    }
-    printf("input:\n");
-    print(array_i,  n);
+    while (n >= 0) {
 
-    std::cout << "start sort" << endl;
-    
-    double t0 = omp_get_wtime();
-    MergeSort(array_i, n,0);
-    double t1 = omp_get_wtime();
-    printf("\noutput\n");
-    print(array_i,n);
-    std::cout << "test" << std::endl;
-    bool Suc = true;
-    for(int i=0;i<n-1;i++)
-        if (array_i[i] > array_i[i + 1]) {
-            Suc = false;
-            break;
+
+        std::cout << "read n:";
+        std::cin >> n;
+        std::cout << std::endl;
+        double* array_i = new double[n];
+        for (int i = 0; i < n; i++)
+            array_i[i] = gen();
+        for (int i = 0; i < n; i++) {
+            double v = array_i[i];
+            array_i[i] = GenerateValue(v);
         }
-    delete[]array_i;
-    std::cout << (t1 - t0) / 1000 << endl;
-    std::cout << Suc << endl;
+        printf("input:\n");
+       // print(array_i, n);
+
+        std::cout << "start sort" << endl;
+
+        double t0 = omp_get_wtime();
+        MergeSort(array_i, n, 0);
+        double t1 = omp_get_wtime();
+        printf("\noutput\n");
+       // print(array_i, n);
+        std::cout << "test" << std::endl;
+        bool Suc = true;
+        for (int i = 0; i < n - 1; i++)
+            if (array_i[i] > array_i[i + 1]) {
+                Suc = false;
+                break;
+            }
+        delete[]array_i;
+        std::cout << (t1 - t0) / 1000 << endl;
+        std::cout << Suc << endl;
+    }
 }
 
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
